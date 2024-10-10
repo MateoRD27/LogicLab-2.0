@@ -25,10 +25,14 @@ public class Or extends Compuertas {
 @Override
     public void comprobarTabla() {// por definir
           int resultado = 0;
-        for (int i = 1; i < getPines().size(); i++) {
-            resultado |= getPines().get(i).getValor(); 
+         for (int i = 1; i < getPines().size(); i++) {
+            resultado |= getPines().get(i).getValor(); // Operación OR: Si algún valor es 1, el resultado será 1
         }
-        setValor(resultado); 
+        
+        // Asigna el resultado al valor de la compuerta
+        setValor(resultado);
+        
+        // Asigna el valor de salida a la salida del pin correspondiente
         asignarValorSalidaAPin();
     }
     
@@ -104,6 +108,8 @@ public class Or extends Compuertas {
             for (int i = getPines().size(); i <= numEntra; i++) {
                 agregarPin(getX(), getY(), "ENTRADA");
             }
+                    // Si el número de entradas es menor, se eliminan los pines extra
+
         } else if (getPines().size() > numEntra) {
             eliminarPin();
         }

@@ -4,6 +4,7 @@ package compuertas;
 Integrantes de grupo: 
 Torres Kevin
 Ramos Mateo 
+Ramirez Leonardo
 Gonzales Lauren 
  */
 
@@ -23,19 +24,21 @@ public class Xnor extends Compuertas {
     
         @Override
     public void comprobarTabla() {// por definir
-        int v1 = getPines().get(1).getValor(); // obtenemos el valor del primer pin 
+       // Esta función compara los valores de las entradas para calcular la salida XNOR
+        int v1 = getPines().get(1).getValor(); // obtenemos el valor del primer pin
         int v2 = 0;
+        // Compara el valor de las entradas restantes con el primer valor
         for (int i = 2; i < getPines().size(); i++) {
-            v2 = getPines().get(i).getValor();   //obtenemos el valor el valor de los demas pines 
-            if(v2!=v1){
-                setValor(0); // si
+            v2 = getPines().get(i).getValor();   // obtenemos el valor de los demás pines
+            if (v2 != v1) {
+                setValor(0); // Si los valores son diferentes, la salida es 0
                 break;
             }
         }
-        if(v1==v2){
-            setValor(1);
+        if (v1 == v2) {
+            setValor(1); // Si todos los valores son iguales, la salida es 1
         }
-        asignarValorSalidaAPin();
+        asignarValorSalidaAPin(); // Asigna el valor de salida
     }
 
     // Dibujar compuerta XNOR 

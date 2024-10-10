@@ -5,6 +5,7 @@ package compuertas;
 Integrantes de grupo: 
 Torres Kevin
 Ramos Mateo 
+Ramirez Leonardo
 Gonzales Lauren 
  */
 import componentes.Pines;
@@ -23,11 +24,15 @@ public class Nand extends Compuertas {
     
     
         @Override
-    public void comprobarTabla() { // por definir
+    public void comprobarTabla() { 
+        // Inicializa el valor como 1 (para simular la operación AND)
+        // Itera sobre los pines de entrada para calcular el resultado AND de todos
+
         int v=1;  
         for (int i = 1; i < getPines().size(); i++) {
             v=v*getPines().get(i).getValor();
         }
+         // Si el resultado es 1 (todos los pines de entrada son 1), la salida es 0
         if(v==1){
             setValor(0);
         }else{
@@ -100,7 +105,8 @@ public class Nand extends Compuertas {
 
         @Override
     public void setNumEntra(int numEntra) {// esto es para agregar los pines segun el numero de entradas
-        super.setNumEntra(numEntra);
+        super.setNumEntra(numEntra);// Llama al método de la clase padre para actualizar el número de entradas
+        // Si el número de entradas es mayor, se añaden pines
         if (numEntra >= getPines().size()) {
             for (int i = getPines().size(); i <= numEntra; i++) {
                 agregarPin(getX(), getY(), "ENTRADA");

@@ -8,9 +8,21 @@ package interfaz;
 /**
  *
  * @author Mateo
+ * @author Leonardo Ramirez
+ * @author Kevin Torres
+ * @author Lauren
+ * 
+ *  Interfaz que define los nombres de las compuertas lógicas disponibles.
  */
+
+
 public interface NombreCompuerta {
     public enum CompuertaLogica {
+        
+    /*
+     * Enumeración de los tipos de compuertas lógicas.
+     * Cada compuerta lógica ya tiene su logica en cada archivo
+     */
     AND("AND"),
     OR("OR"),
     NOT("NOT"),
@@ -18,6 +30,8 @@ public interface NombreCompuerta {
     NAND("NAND"),
     XNOR("XNOR"),
     NOR("NOR");
+
+            // Variable que guarda el nombre de la compuerta lógica
 
     private final String nombre;
 

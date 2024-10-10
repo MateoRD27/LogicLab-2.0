@@ -3,6 +3,7 @@ package interfaz;
 /*
 Integrantes de grupo: 
 Torres Kevin
+Ramirez Leonardo
 Ramos Mateo
 Gonzales Lauren 
  */
@@ -23,6 +24,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
 public class Interfaz extends javax.swing.JFrame implements NombreCompuerta {
+
+        // Instancia de la clase Circuitos, que maneja los circuitos lógicos
 
     Circuitos circuito = new Circuitos();
     //private ArrayList<Compuertas> compuertas = new ArrayList<>();  //arreglo donde almecenar las compuertas 
@@ -56,7 +59,7 @@ public class Interfaz extends javax.swing.JFrame implements NombreCompuerta {
     JPopupMenu cablePopupMenu = new JPopupMenu();
     JMenuItem eliminarCable = new JMenuItem("Eliminar Cable");
 
-    private int index = 0;
+    private int index = 0;  // Índice para llevar el control de las compuertas o componentes
 
     public Interfaz() {
         initComponents();
@@ -88,15 +91,22 @@ public class Interfaz extends javax.swing.JFrame implements NombreCompuerta {
             }
         });
 
+                // Añade un mouse listener para detectar acciones del mouse sobre el panel
+
         Panel.addMouseListener(new java.awt.event.MouseAdapter() {
 
             @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                if (!modoSimulacion) {
-                    if (modoDibujarCable) {
+                        // Se ejecuta cuando el botón del mouse es presionado
+
+                if (!modoSimulacion) { // Solo si no está en modo simulación
+                    if (modoDibujarCable) { // Si el modo de dibujar cables está activado
+                        // Guardamos las coordenadas de lo que nos dan
                         xInicioCable = evt.getX();
                         yInicioCable = evt.getY();
                     } else {
+                                        // Si no es el modo de dibujar cable, se llama a manejar el clic normal
+
                         onMousePressed(evt);
                     }
                 }
@@ -104,9 +114,12 @@ public class Interfaz extends javax.swing.JFrame implements NombreCompuerta {
 
             @Override
             public void mouseReleased(java.awt.event.MouseEvent evt) {
+        // Se ejecuta cuando el botón del mouse es soltado
 
                 if (!modoSimulacion) {
                     if (modoDibujarCable) {
+            // Guardamos las coordenadas finales del cable cuando el mouse es soltado
+
                         xFinCable = evt.getX();
                         yFinCable = evt.getY();
                         // Aquí podrías agregar la lógica para "guardar" el cable, si es necesario
@@ -120,9 +133,12 @@ public class Interfaz extends javax.swing.JFrame implements NombreCompuerta {
             }
         });
 
+        // Configuración de MouseMotionListener para el draw, maneja el arrastre del mouse
+
         Panel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             @Override
             public void mouseDragged(java.awt.event.MouseEvent evt) {
+        // Se ejecuta mientras el mouse es arrastrado
 
                 if (!modoSimulacion) {
                     if (modoDibujarCable) {
@@ -137,22 +153,32 @@ public class Interfaz extends javax.swing.JFrame implements NombreCompuerta {
             }
         });
 
+        // Configuración de MouseListener para detectar clics en el panel
+
         Panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                
                 // Mostrar el menú solo si es un clic derecho
+                // Detecta el tipo de clic (derecho o izquierdo) 
 
                 if (SwingUtilities.isRightMouseButton(e) && modoSimulacion == false) {
                     onMouseLine(e);
+                 // Si se hace clic derecho y no está en modo simulación, muestra el menú contextual para las compuertas
+
                 }
 
                 if (SwingUtilities.isLeftMouseButton(e) && modoSimulacion == true) {
                     // llamamos a la funcionalidad de los swiches ///////////---------------////////////---------------/////////////
                     circuito.iniciarSimulación(e.getX(), e.getY());
                     repaint();
+                 // Si se hace clic izquierdo y está en modo simulación, llama a la función de simulación del circuito
+
                 }
             }
         });
+
+        // Acción del menú emergente "Eliminar compuerta" - item1
 
         item1.addActionListener(e -> {
             if (clickCompuerta != null) {
@@ -197,6 +223,7 @@ public class Interfaz extends javax.swing.JFrame implements NombreCompuerta {
     }
 
 // metodos 
+ /*
     public void hacerZoom() {
 
     }
@@ -204,9 +231,13 @@ public class Interfaz extends javax.swing.JFrame implements NombreCompuerta {
     public void moverLienzo() {
 
     }
-
+*/
     // Cambios en los métodos de eliminación
+    
+    // Método para eliminar un LED cuando se hace clic en el botón 
+
     private void clickEliminarLed(Leds led) {
+        // Elimina el LED del circuito
         circuito.eliminarLed(led);
         arrastrarLed = null; // Reiniciar la referencia
         repaint();
@@ -214,6 +245,8 @@ public class Interfaz extends javax.swing.JFrame implements NombreCompuerta {
     }
 
     private void clickEliminarSwitch(Switches switches) {
+                // Elimina el switch del circuito
+
         circuito.eliminarSwitch(switches);
         arrastredSwitch = null; // Reiniciar la referencia
         repaint();
@@ -430,15 +463,18 @@ public class Interfaz extends javax.swing.JFrame implements NombreCompuerta {
     }
 
     private void onMousePressed(MouseEvent evt) {
+            // Verifica si se hace clic en una compuerta y almacena la referencia para moverla
+
         for (Compuertas compu : circuito.getCompuertas()) {
             if (compu.estaEnLaLinea(evt.getX(), evt.getY())) {
                 arrastrarCompuerta = compu;
-                offsetX = evt.getX() - compu.getX();
+                offsetX = evt.getX() - compu.getX(); // Calcula el desplazamiento con respecto a la compuerta
                 offsetY = evt.getY() - compu.getY();
                 break;
             }
         }
-        // Verifica si se está haciendo clic en un LED
+            // Verifica si se hace clic en un LED y almacena la referencia para moverlo
+
         for (Leds led : circuito.getLeds()) {
             if (led.estaEnLaLinea(evt.getX(), evt.getY())) {
                 arrastrarLed = led;
@@ -448,7 +484,8 @@ public class Interfaz extends javax.swing.JFrame implements NombreCompuerta {
             }
         }
         // Verifica si se está haciendo clic en un switch
-        for (Switches switches : circuito.getSwitches()) {
+        for (Switches switches : circuito.getSwitches()) {     // Verifica si se hace clic en un switch y almacena la referencia para moverlo
+
             if (switches.estaEnLaLinea(evt.getX(), evt.getY())) {
                 arrastredSwitch = switches;
                 offsetX = evt.getX() - switches.getX();
@@ -495,7 +532,8 @@ public class Interfaz extends javax.swing.JFrame implements NombreCompuerta {
                 return; // Salir del método
             }
         }
-    }
+    }     // Verifica si el mouse se encuentra sobre una compuerta, LED o switch para mostrar el menú contextual
+
 
     private void onMouseReleased() {
         arrastrarCompuerta = null;  // Dejar de deslizar la compuerta

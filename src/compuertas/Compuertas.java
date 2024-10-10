@@ -6,6 +6,7 @@ Integrantes de grupo:
 Torres Kevin
 Ramos Mateo
 Gonzales Lauren 
+Ramirez Leonardo
  */
 import componentes.Componente;
 import java.awt.Graphics2D;
@@ -15,9 +16,9 @@ import java.util.ArrayList;
 //Aquí la clase padre 
 public abstract class Compuertas extends Componente {
 
-    private int numEntra;
-    protected int width, height;
-    public String nombreComp;
+    private int numEntra;  // Número de entradas de la compuerta
+    protected int width, height; // Tamaño
+    public String nombreComp; // Nombre
 
     private ArrayList<Pines> pines;  //arreglo donde almecenar las entradas/salidas
 
@@ -26,11 +27,13 @@ public abstract class Compuertas extends Componente {
         super(x, y);
         this.width = 50;
         this.height = 30;
-        this.numEntra = numEntrada;
-        pines = new ArrayList<>();
-        this.nombreComp = "";
+        this.numEntra = numEntrada; // Número de entradas inicial
+        pines = new ArrayList<>(); // la lista de pines
+        this.nombreComp = ""; // Nombre de la compuerta
+
     }
 
+    // Metodo que comprueba la tabla
     public abstract void comprobarTabla();
 
     //Metodos abstractos
@@ -48,23 +51,26 @@ public abstract class Compuertas extends Componente {
 
     //metodo para agregar pines
     public void agregarPin(int x, int y, String tipoPin) {
-        Pines pin = new Pines(x, y, tipoPin);
-        pin.setCompuertaPadre(this);
-        getPines().add(pin);
+        Pines pin = new Pines(x, y, tipoPin); // Se crea un nuevo pin
+        pin.setCompuertaPadre(this); // Se asocia el pin con la compuerta actual
+        getPines().add(pin); // Se agrega el pin a la lista de pines
     }
 
+      // elimina el último pin de la lista
     public void eliminarPin() {
-        if (!getPines().isEmpty()) {
+        if (!getPines().isEmpty()) { // Verifica si hay pines para eliminar
             getPines().remove(getPines().size() - 1);
         }
     }
 
     //drawPines
+    // Método para dibujar los pines de la compuerta
+
     public void drawPin(Graphics2D g) {
         for (Pines pine : pines) {
             pine.draw(g);
-            if (pine.getCableEntradaSalida() != null) {
-                pine.getCableEntradaSalida().draw(g);
+            if (pine.getCableEntradaSalida() != null) { // Si el pin tiene un cable asociado
+                pine.getCableEntradaSalida().draw(g); // Dibuja el cable
             }
 
         }

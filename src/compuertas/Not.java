@@ -3,6 +3,7 @@ package compuertas;
 /*
 Integrantes de grupo: 
 Torres Kevin
+Ramirez Leonardo
 Ramos Mateo 
 Gonzales Lauren 
  */
@@ -20,11 +21,14 @@ public final class Not extends Compuertas {
     }
     
         @Override
-    public void comprobarTabla() {// por definir
+    public void comprobarTabla() {        // Si el valor de la entrada es 0, la salida será 1 (NOT lógico)
+
         if(getPines().get(1).getValor()==0){
-            setValor(1);
+            
+            setValor(1);// Negación: si la entrada es 0, la salida es 1
+            
         }else{
-            setValor(0);
+            setValor(0); // Si la entrada es 1, la salida es 0
         }
         asignarValorSalidaAPin();
     }

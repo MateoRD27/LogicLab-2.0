@@ -4,6 +4,7 @@ package compuertas;
 Integrantes de grupo: 
 Torres Kevin
 Ramos Mateo 
+Ramirez Leonardo
 Gonzales Lauren 
  */
 import componentes.Pines;
@@ -21,16 +22,21 @@ public class Xor extends Compuertas {
     }
 
     @Override
-    public void comprobarTabla() {// por definir
-        int v1 = getPines().get(1).getValor();
-        int v2 = 0;
-        for (int i = 2; i < getPines().size(); i++) {
-            v2 = getPines().get(i).getValor();
-            if(v2!=v1){
+    public void comprobarTabla() { 
+        int v1 = getPines().get(1).getValor(); // Obtiene el valor del primer pin de entrada
+        int v2 = 0; // Valor del segundo pin de entrada
+        
+        
+        for (int i = 2; i < getPines().size(); i++) { // Recorre todos los pines de entrada para comparar sus valores
+            v2 = getPines().get(i).getValor(); // Obtiene el valor de cada pin de entrada
+            if(v2!=v1){ // Si los valores son diferentes, la salida es 1
                 setValor(1);
                 break;
             }
         }
+        
+                // Si los valores son iguales, la salida es 0
+
         if(v1==v2){
             setValor(0);
         }

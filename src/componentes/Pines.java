@@ -9,11 +9,12 @@ import java.awt.Graphics2D;
 Integrantes de grupo: 
 Torres Kevin
 Ramos Mateo 
+Ramirez Leonardo
 Gonzales Lauren 
  */
 public class Pines extends Componente {
 
-    private String tipoPin;
+    private String tipoPin; // Puede recibir ENTRADA o SALIDA
     private Cables cableEntradaSalida;
     private Leds ledEntrada;
    // private Switches switcheSalida;
@@ -21,12 +22,12 @@ public class Pines extends Componente {
 
     public Pines(int x, int y, String tipoPin) {
         super(x, y);
-        this.compuertaPadre = null;
-        this.cableEntradaSalida = null;
-        this.ledEntrada = null;
+        this.compuertaPadre = null; //el null nos indica aquí que esta no tiene compuerta asociada a ella
+        this.cableEntradaSalida = null; //el null nos indica aquí que esta no tiene cable asociado a ella
+        this.ledEntrada = null; //el null nos indica aquí que esta no tiene LED asociada a ella
        // this.switcheSalida=null;
-        this.tipoPin = tipoPin;
-        tipoComp = tipoComponente.PIN;
+        this.tipoPin = tipoPin; 
+        tipoComp = tipoComponente.PIN; //  el tipo de componente sera PIN
     }
 
     @Override
@@ -34,7 +35,7 @@ public class Pines extends Componente {
         setValor(valor);
         // caso en que sea un pin de salida
         if (getTipoPin().equals("SALIDA")) {
-            if (getCableEntradaSalida() != null) {
+            if (getCableEntradaSalida() != null) { // Pasa el valor a traves del cable conectado 
                 getCableEntradaSalida().simular(valor);
             }
              
@@ -53,13 +54,21 @@ public class Pines extends Componente {
         }
 
     }
+    
+    /*
+    Actualiza la posición X,Y del pin. 
+    También ajusta la posición del cable conectado, 
+    en caso de haberla, para que la conexión del draw se mantenga.
+    */
 
     public void setXY(int x, int y) {
         super.setX(x);
         super.setY(y);
 
+        // Si el cable esta conectado debera ajustarse la posición del cable 
         if (cableEntradaSalida != null) {
             if (getTipoPin().equals("ENTRADA")) {
+                // La actualiza para recibir una entrada
                 cableEntradaSalida.setX2Y2(getX(), getY());
             } else {
                 cableEntradaSalida.setXY(x, y);
@@ -70,15 +79,15 @@ public class Pines extends Componente {
     }
 
     public void draw(Graphics2D g) {
-        g.setStroke(new BasicStroke(5));
-        g.setColor(Color.BLACK);
+        g.setStroke(new BasicStroke(5)); // Este es el grosor del border del circulo entre mayor sea el número más grosor será
+        g.setColor(Color.BLACK); // Colorcito negro
         g.fillOval(getX() - 4, getY() - 4, 8, 8); // Dibuja un círculo pequeño (8x8)
     }
 
     public boolean estaEnLaLinea(int posicionX, int posicionY) {
         // Definición de los radios para un área de 12x12
-        int radioX = 6;
-        int radioY = 6;
+        int radioX = 6; // Radio horizontal
+        int radioY = 6; // "" Vertical
 
         // Verificar si el punto está dentro del rectángulo delimitador del óvalo
         if (posicionX >= getX() - radioX && posicionX <= getX() + radioX

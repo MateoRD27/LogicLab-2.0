@@ -4,6 +4,7 @@ package compuertas;
 Integrantes de grupo: 
 Torres Kevin
 Ramos Mateo 
+Ramirez Leonardo
 Gonzales Lauren 
  */
 import componentes.Pines;
@@ -15,9 +16,9 @@ public final class And extends Compuertas {
 
     public And(int x, int y, String nomCompu) {
         super(x, y, 2, nomCompu);
-        agregarPin(x, y, "SALIDA");
-        agregarPin(x, y, "ENTRADA");
-        agregarPin(x, y, "ENTRADA");
+        agregarPin(x, y, "SALIDA"); // Pin de salida
+        agregarPin(x, y, "ENTRADA"); // primer pin entrada
+        agregarPin(x, y, "ENTRADA"); // Segundo pin entrada
     }
 
     @Override
@@ -33,11 +34,14 @@ public final class And extends Compuertas {
         g.drawLine(getX() + 50, getY() + 25, getX() + 70, getY() + 25); // Linea que resalta afuera    
         switch (getNumEntra()) {
             case 3 -> {
+                // se dibujan 3 lineas
                 g.setStroke(new BasicStroke(5));
                 g.setColor(Color.GREEN);
                 g.drawLine(getX() - 20, getY() + 10, getX(), getY() + 10); // Patita 1
                 g.drawLine(getX() - 20, getY() + 25, getX(), getY() + 25); // Patita 2
                 g.drawLine(getX() - 20, getY() + 40, getX(), getY() + 40); // Patita 3
+                             // Ajusta la posición de los pines
+
                 for (Pines pine : getPines()) {
                     if (pine.getTipoPin().equals("SALIDA")) {
                         pine.setXY(getX() + 70, getY() + 25);  // añade las nuevas coordenadas del pin
@@ -49,6 +53,8 @@ public final class And extends Compuertas {
                 drawPin(g);
             }
             case 4 -> {
+                                // se dibujan 4 lineas
+
                 g.setStroke(new BasicStroke(5));
                 g.setColor(Color.GREEN);
                 g.drawLine(getX() - 20, getY() + 5, getX(), getY() + 5);    // Patita 1
@@ -56,15 +62,16 @@ public final class And extends Compuertas {
                 g.drawLine(getX() - 20, getY() + 31, getX(), getY() + 31);  // Patita 3
                 g.drawLine(getX() - 20, getY() + 44, getX(), getY() + 44);  // Patita 4
                 
+             // Ajusta la posición de los pines
                 for (Pines pine : getPines()) {
                     if (pine.getTipoPin().equals("SALIDA")) {
                         pine.setXY(getX() + 70, getY() + 25);
                     } else {
-                        int index = getPines().indexOf(pine); // se obtiene el indice de lo pnes en el array 
+                        int index = getPines().indexOf(pine); // se obtiene el indice de lo pines en el array 
                         pine.setXY(getX()-20, getY() + (5 + ((index-1)*13)));
                     }
                 }
-                drawPin(g);
+                drawPin(g); // dibuja los pines xD
                 
             }
             default -> {
@@ -85,18 +92,20 @@ public final class And extends Compuertas {
     }
 
     @Override
-    public void comprobarTabla() { // por definir
-        int v=1;  
+    public void comprobarTabla() { // Método que verifica los valores de entrada y genera el valor de salida según la tabla de verdad de la compuerta AND
+        int v=1;   // Valor inicial de la AND
+        // Multiplica los valores de todas las entradas
         for (int i = 1; i < getPines().size(); i++) {
             v=v*getPines().get(i).getValor();
         }
         
-        // 
+        // Asigna el valor resultante a la salida
         setValor(v);
-        asignarValorSalidaAPin();
+        asignarValorSalidaAPin(); 
     }
 
     @Override
+    //ajustar el número de entradas de la compuerta
     public void setNumEntra(int numEntra) { // esto es para agregar los pines segun el numero de entradas
         super.setNumEntra(numEntra);
         if (numEntra >= getPines().size()) {
@@ -104,6 +113,7 @@ public final class And extends Compuertas {
                 agregarPin(getX(), getY(), "ENTRADA");
             }
         }else if(getPines().size() > numEntra){
+            // Si hay más pines de los necesarios, los elimina
             eliminarPin();
         }
     }

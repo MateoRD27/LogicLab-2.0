@@ -4,6 +4,7 @@ package compuertas;
 Integrantes de grupo: 
 Torres Kevin
 Ramos Mateo 
+Ramirez Leonardo
 Gonzales Lauren 
  */
 import componentes.Pines;
