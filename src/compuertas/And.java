@@ -25,8 +25,7 @@ public final class And extends Compuertas {
     //se dibuja la compuerta 
     public void draw(Graphics2D g) {
 
-        g.setStroke(new BasicStroke(5));
-        g.setColor(Color.GREEN);
+        g.setStroke(new BasicStroke(2));
         g.drawArc(getX(), getY(), 50, 50, 270, 180); // Arco
         g.drawLine(getX(), getY(), getX(), getY() + 50); // Linea vertical
         g.drawLine(getX(), getY(), getX() + 25, getY()); // Linea de arriba del AND
@@ -35,8 +34,6 @@ public final class And extends Compuertas {
         switch (getNumEntra()) {
             case 3 -> {
                 // se dibujan 3 lineas
-                g.setStroke(new BasicStroke(5));
-                g.setColor(Color.GREEN);
                 g.drawLine(getX() - 20, getY() + 10, getX(), getY() + 10); // Patita 1
                 g.drawLine(getX() - 20, getY() + 25, getX(), getY() + 25); // Patita 2
                 g.drawLine(getX() - 20, getY() + 40, getX(), getY() + 40); // Patita 3
@@ -55,8 +52,6 @@ public final class And extends Compuertas {
             case 4 -> {
                                 // se dibujan 4 lineas
 
-                g.setStroke(new BasicStroke(5));
-                g.setColor(Color.GREEN);
                 g.drawLine(getX() - 20, getY() + 5, getX(), getY() + 5);    // Patita 1
                 g.drawLine(getX() - 20, getY() + 18, getX(), getY() + 18);  // Patita 2
                 g.drawLine(getX() - 20, getY() + 31, getX(), getY() + 31);  // Patita 3

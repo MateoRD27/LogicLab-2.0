@@ -46,8 +46,7 @@ public class Xor extends Compuertas {
     // Dibujar compuerta Xor
     @Override
     public void draw(Graphics2D g) {
-        g.setStroke(new BasicStroke(5));
-        g.setColor(Color.YELLOW);
+        g.setStroke(new BasicStroke(2));
 
         g.drawArc(getX() - 25, getY(), 80, 50, 270, 180); // Arco frontal
         g.drawArc(getX() - 20, getY(), 50, 50, 270, 180); // Arco trasero

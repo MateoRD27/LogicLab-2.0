@@ -70,11 +70,13 @@ public class Cables extends Componente {
     
         // Método para verificar si un punto está cerca de la línea del cable
     public boolean estaEnLaLinea(int posicionX, int posicionY) {
-        double distancia = Math.abs((y2 - getY()) * posicionX - (x2 - getX()) * posicionY + x2 * getY() - y2 * getX())
+        double distancia = Math.abs((y2 - getY()) * posicionX - (x2 - getX()) * posicionY + x2 * getY() - y2 * getX())  //usando la fórmula de distancia punto-recta en geometría analítica
                 / Math.sqrt(Math.pow(y2 - getY(), 2) + Math.pow(x2 - getX(), 2));
+    // Fórmula para calcular la distancia entre un punto (posicionX, posicionY) y una línea. definida por los puntos (x1, y1) = (getX(), getY()) y (x2, y2).
+    // d = |(y2 - y1) * x0 - (x2 - x1) * y0 + x2 * y1 - y2 * x1| / sqrt((y2 - y1)^2 + (x2 - x1)^2)
 
         // Verifica si la distancia es menor o igual a 10 y si está dentro de los límites de la línea
-        return (distancia <= 10
+        return (distancia <= 10  //Verifican si el clic está dentro del rectángulo delimitador de la línea.
                 && Math.min(getX(), x2) <= posicionX && posicionX <= Math.max(getX(), x2)
                 && Math.min(getY(), y2) <= posicionY && posicionY <= Math.max(getY(), y2));
     }
@@ -116,6 +118,7 @@ public class Cables extends Componente {
                 double posRelativa = longitudCablePadre*cableConectado.getPorcentajeRelativo();
 
                 // Calcular nuevas coordenadas para cada cable hijo
+                // Fórmulas de interpolación lineal:
                 double xHijo = x1 + (posRelativa / longitudCablePadre) * (x2 - x1);
                 double yHijo = y1 + (posRelativa / longitudCablePadre) * (y2 - y1);
 

@@ -44,9 +44,7 @@ public class Nand extends Compuertas {
     // Dibujar compuerta NAND
     @Override
     public void draw(Graphics2D g) {
-        g.setStroke(new BasicStroke(5));
-        g.setColor(Color.MAGENTA);
-
+        g.setStroke(new BasicStroke(2));
         g.drawArc(getX(), getY(), 50, 50, 270, 180); // Arco
         g.drawLine(getX(), getY(), getX(), getY() + 50); // Línea vertical
         g.drawLine(getX(), getY(), getX() + 25, getY()); // Línea superior

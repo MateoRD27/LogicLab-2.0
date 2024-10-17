@@ -45,8 +45,7 @@ public final class Not extends Compuertas {
                 pine.setXY(getX() - 20, getY() + 25);
             }
         }
-        g.setStroke(new BasicStroke(5));
-        g.setColor(Color.BLUE);
+        g.setStroke(new BasicStroke(2));
         g.drawLine(getX(), getY(), getX() + 50, getY() + 25); // Triángulo patita arriba
         g.drawLine(getX() + 50, getY() + 25, getX(), getY() + 50); // Triángulo patita abajo
         g.drawLine(getX(), getY(), getX(), getY() + 50); // Triángulo patita hipotenusa

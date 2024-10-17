@@ -46,8 +46,7 @@ public void comprobarTabla() {
     // Dibujar compuerta NOR
     @Override
     public void draw(Graphics2D g) {
-        g.setStroke(new BasicStroke(5));
-        g.setColor(Color.ORANGE);
+        g.setStroke(new BasicStroke(2));
 
         g.drawArc(getX() - 15, getY(), 70, 50, 270, 180); // Arco frontal
         g.drawArc(getX() - 10, getY(), 40, 50, 270, 180); // Arco trasero

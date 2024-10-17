@@ -42,8 +42,7 @@ public class Or extends Compuertas {
     //se dibuja la compuerta con 2 entradas
     public void draw(Graphics2D g) {
 
-        g.setStroke(new BasicStroke(5));
-        g.setColor(Color.RED);
+        g.setStroke(new BasicStroke(2));
         g.drawArc(getX() - 15, getY(), 70, 50, 270, 180); // Arco frente
         g.drawArc(getX() - 10, getY(), 40, 50, 270, 180); // Arco atrás
         g.drawLine(getX() + 10, getY() + 50, getX() + 20, getY() + 50); // Línea de abajo
@@ -51,8 +50,6 @@ public class Or extends Compuertas {
         g.drawLine(getX() + 55, getY() + 25, getX() + 70, getY() + 25); // Línea afuera
 
         if (getNumEntra() == 3) {
-            g.setStroke(new BasicStroke(5));
-            g.setColor(Color.RED);
             g.drawLine(getX(), getY() + 10, getX() + 28, getY() + 10); // Patita 1
             g.drawLine(getX(), getY() + 25, getX() + 28, getY() + 25); // Patita 2
             g.drawLine(getX(), getY() + 40, getX() + 28, getY() + 40); // Patita 3
@@ -66,8 +63,6 @@ public class Or extends Compuertas {
             }
             drawPin(g);
         } else if (getNumEntra() == 4) {
-            g.setStroke(new BasicStroke(5));
-            g.setColor(Color.RED);
             g.drawLine(getX() - 10, getY() + 5, getX() + 18, getY() + 5);    // Patita 1
             g.drawLine(getX() - 10, getY() + 18, getX() + 28, getY() + 18);  // Patita 2
             g.drawLine(getX() - 10, getY() + 31, getX() + 28, getY() + 31);  // Patita 3
@@ -82,8 +77,6 @@ public class Or extends Compuertas {
             }
             drawPin(g);
         } else {
-            g.setStroke(new BasicStroke(5));
-            g.setColor(Color.RED);
             g.drawLine(getX(), getY() + 15, getX() + 28, getY() + 15); // Patita 1
             g.drawLine(getX(), getY() + 35, getX() + 28, getY() + 35); // Patita 2
             for (Pines pine : getPines()) {

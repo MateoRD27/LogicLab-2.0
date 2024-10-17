@@ -17,7 +17,7 @@ public class Pines extends Componente {
     private String tipoPin; // Puede recibir ENTRADA o SALIDA
     private Cables cableEntradaSalida;
     private Leds ledEntrada;
-   // private Switches switcheSalida;
+    // private Switches switcheSalida;
     private Compuertas compuertaPadre;
 
     public Pines(int x, int y, String tipoPin) {
@@ -25,8 +25,8 @@ public class Pines extends Componente {
         this.compuertaPadre = null; //el null nos indica aquí que esta no tiene compuerta asociada a ella
         this.cableEntradaSalida = null; //el null nos indica aquí que esta no tiene cable asociado a ella
         this.ledEntrada = null; //el null nos indica aquí que esta no tiene LED asociada a ella
-       // this.switcheSalida=null;
-        this.tipoPin = tipoPin; 
+        // this.switcheSalida=null;
+        this.tipoPin = tipoPin;
         tipoComp = tipoComponente.PIN; //  el tipo de componente sera PIN
     }
 
@@ -38,7 +38,7 @@ public class Pines extends Componente {
             if (getCableEntradaSalida() != null) { // Pasa el valor a traves del cable conectado 
                 getCableEntradaSalida().simular(valor);
             }
-             
+
         } else {
             // caso en que sea un pin de entrada
             //caso en que sea un pin de compuerta
@@ -54,13 +54,12 @@ public class Pines extends Componente {
         }
 
     }
-    
+
     /*
     Actualiza la posición X,Y del pin. 
     También ajusta la posición del cable conectado, 
     en caso de haberla, para que la conexión del draw se mantenga.
-    */
-
+     */
     public void setXY(int x, int y) {
         super.setX(x);
         super.setY(y);
@@ -98,6 +97,8 @@ public class Pines extends Componente {
             double dy = (posicionY - getY()) / (double) radioY;
 
             // Verificar si está dentro del óvalo
+            // Verificar si el punto está dentro del elipse usando la ecuación:
+            // (dx^2 + dy^2) <= 1
             return (dx * dx + dy * dy) <= 1; // Verifica la ecuación del elipse
         }
 
@@ -187,15 +188,14 @@ public class Pines extends Componente {
     /**
      * @return the switcheSalida
      */
-   /* public Switches getSwitcheSalida() {
+    /* public Switches getSwitcheSalida() {
         return switcheSalida;
     }
 
     /**
      * @param switcheSalida the switcheSalida to set
      */
-   /* public void setSwitcheSalida(Switches switcheSalida) {
+ /* public void setSwitcheSalida(Switches switcheSalida) {
         this.switcheSalida = switcheSalida;
     }*/
-
 }
