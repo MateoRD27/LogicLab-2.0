@@ -154,6 +154,7 @@ public class Pines extends Componente {
      * @param cableEntradaSalida the cableEntradaSalida to set
      */
     public void setCableEntradaSalida(Cables cableEntradaSalida) {
+        // arreglar aqui para que el cable se dibuje correctamente si conectamos x2 y y2 del cable a un pin de origen o viceversa ------------
         this.cableEntradaSalida = cableEntradaSalida;
     }
 

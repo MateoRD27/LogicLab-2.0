@@ -14,12 +14,13 @@ public class Switches extends Componente {
 
     private Pines pinSwitch = null; // Pin asociado al switch
     protected int width, height;
+    private Character var;
 
     public Switches(int x, int y) {
         super(x, y);
         this.width = 20;  // Ancho del switch
         this.height = 20; // Alto del switch
-
+        
         /* Agregar el pin de entrada al switch, centrado dentro de él
          Crea el pin asociado al switch, centrado dentro de las dimensiones del switch
         */
@@ -58,7 +59,7 @@ public class Switches extends Componente {
         if (getValor() == 1) {
             g.setColor(Color.GREEN); // Encendido
         } else {
-            g.setColor(Color.BLUE); // Apagado
+            g.setColor(Color.gray); // Apagado
         }
 
         g.drawRect(getX(), getY(), width, height);
@@ -76,5 +77,20 @@ public class Switches extends Componente {
         // Verifica si esta dentro del area del Switch
         return posicionX >= getX() && posicionX <= getX() + width && posicionY >= getY() && posicionY <= getY() + height;
     }
+
+    /**
+     * @return the var
+     */
+    public Character getVar() {
+        return var;
+    }
+
+    /**
+     * @param var the var to set
+     */
+    public void setVar(Character var) {
+        this.var = var;
+    }
+    
 
 }

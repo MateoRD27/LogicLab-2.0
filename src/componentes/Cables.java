@@ -7,13 +7,13 @@ import java.util.ArrayList;
 
 public class Cables extends Componente {
 
-
     private double porcentajeRelativo;// 
     private int x2; // punto de coordenadas donde se deja el cable
     private int y2; // punto de coordenadas donde se deja el cable
-    private Pines origenPinCable=null; // pin de origen del cable
-    private Pines destinoPinCable=null; // pin de destino del cable
+    private Pines origenPinCable = null; // pin de origen del cable
+    private Pines destinoPinCable = null; // pin de destino del cable
     private Cables cableOrigen = null; // referencia al cable padre
+    public int grosorLinea = 1;
 // referencia al cable padre
     private ArrayList<Cables> cablesConectados = new ArrayList<>();
     // separación deseada entre cables hijos
@@ -30,26 +30,22 @@ public class Cables extends Componente {
     @Override
     public void simular(int valor) {
         setValor(valor);
-       // caso de que le salgan otros cables
-       if(!cablesConectados.isEmpty()){
-           asignarValosCables();
-       }
-       //caso de que llegue a un pin 
-       if(destinoPinCable!=null){
-           destinoPinCable.simular(valor);
-       }
+        // caso de que le salgan otros cables
+        if (!cablesConectados.isEmpty()) {
+            asignarValosCables();
+        }
+        //caso de que llegue a un pin 
+        if (destinoPinCable != null) {
+            destinoPinCable.simular(valor);
+        }
     }
 
     // funcion para darle valor a los cables de salida
-    public void asignarValosCables(){
+    public void asignarValosCables() {
         for (Cables cablesConectado : cablesConectados) {
             cablesConectado.simular(getValor());
         }
     }
-
-
-    
-    
 
     // Método para conectar el cable a un pin
     public void conectarAPin(Pines pin) {
@@ -67,18 +63,69 @@ public class Cables extends Componente {
     public void setX2Y2(int x, int y) {
         moverCoordenadaCable(x, y, false); // mover el destino del cable
     }
-    
-        // Método para verificar si un punto está cerca de la línea del cable
+
+    // Método para verificar si un punto está cerca de la línea del cable
     public boolean estaEnLaLinea(int posicionX, int posicionY) {
-        double distancia = Math.abs((y2 - getY()) * posicionX - (x2 - getX()) * posicionY + x2 * getY() - y2 * getX())  //usando la fórmula de distancia punto-recta en geometría analítica
+        double distancia = Math.abs((y2 - getY()) * posicionX - (x2 - getX()) * posicionY + x2 * getY() - y2 * getX()) //usando la fórmula de distancia punto-recta en geometría analítica
                 / Math.sqrt(Math.pow(y2 - getY(), 2) + Math.pow(x2 - getX(), 2));
-    // Fórmula para calcular la distancia entre un punto (posicionX, posicionY) y una línea. definida por los puntos (x1, y1) = (getX(), getY()) y (x2, y2).
-    // d = |(y2 - y1) * x0 - (x2 - x1) * y0 + x2 * y1 - y2 * x1| / sqrt((y2 - y1)^2 + (x2 - x1)^2)
+        // Fórmula para calcular la distancia entre un punto (posicionX, posicionY) y una línea. definida por los puntos (x1, y1) = (getX(), getY()) y (x2, y2).
+        // d = |(y2 - y1) * x0 - (x2 - x1) * y0 + x2 * y1 - y2 * x1| / sqrt((y2 - y1)^2 + (x2 - x1)^2)
 
         // Verifica si la distancia es menor o igual a 10 y si está dentro de los límites de la línea
-        return (distancia <= 10  //Verifican si el clic está dentro del rectángulo delimitador de la línea.
+        return (distancia <= 15 //Verifican si el clic está dentro del rectángulo delimitador de la línea.
                 && Math.min(getX(), x2) <= posicionX && posicionX <= Math.max(getX(), x2)
                 && Math.min(getY(), y2) <= posicionY && posicionY <= Math.max(getY(), y2));
+    }
+
+    public boolean estaEnLaLineaXY(int posicionX, int posicionY) { // VERIFICA SI EL X Y Y SONLOS EXTREMOS DEL CABLE
+        // Definición de los radios para un área de 12x12
+        int radioX = 8; // Radio horizontal
+        int radioY = 8; // "" Vertical
+
+        // Verificar si el punto está dentro del rectángulo delimitador del óvalo
+        if (posicionX >= getX() - radioX && posicionX <= getX() + radioX
+                && posicionY >= getY() - radioY && posicionY <= getY() + radioY) {
+
+            // Cálculo de la distancia desde el centro del óvalo
+            double dx = (posicionX - getX()) / (double) radioX;
+            double dy = (posicionY - getY()) / (double) radioY;
+
+            // Verificar si está dentro del óvalo
+            // Verificar si el punto está dentro del elipse usando la ecuación:
+            // (dx^2 + dy^2) <= 1
+            return (dx * dx + dy * dy) <= 1; // Verifica la ecuación del elipse
+        }
+
+        return false;
+    }
+
+    public boolean estaEnLaLineaX2Y2(int posicionX, int posicionY) { // VERIFICA SI EL X Y Y SONLOS EXTREMOS DEL CABLE
+        // Definición de los radios para un área de 12x12
+        int radioX = 8; // Radio horizontal
+        int radioY = 8; // "" Vertical
+
+        // Verificar si el punto está dentro del rectángulo delimitador del óvalo
+        if (posicionX >= getX2()- radioX && posicionX <= getX2() + radioX
+                && posicionY >= getY2() - radioY && posicionY <= getY2() + radioY) {
+
+            // Cálculo de la distancia desde el centro del óvalo
+            double dx = (posicionX - getX2()) / (double) radioX;
+            double dy = (posicionY - getY2()) / (double) radioY;
+
+            // Verificar si está dentro del óvalo
+            // Verificar si el punto está dentro del elipse usando la ecuación:
+            // (dx^2 + dy^2) <= 1
+            return (dx * dx + dy * dy) <= 1; // Verifica la ecuación del elipse
+        }
+
+        return false;
+    }
+    
+      // Método para conectar este cable a otro cable hijo
+    public void conectarACable(Cables cable) {  // agregar el porcentaje relativo que representa la distancia a la que debe de ir conectado el cable
+        cable.setPorcentajeRelativo(longitudCable(getX(), getY(), cable.getX(), cable.getY()) / longitudCable(getX(), getY(), getX2(), getY2()));
+        cablesConectados.add(cable); // Agregar el cable a la lista de cables conectados
+        cable.cableOrigen = this; // Configura la referencia al cable de origen
     }
 
     // Método para mover el cable y actualizar las coordenadas
@@ -96,6 +143,8 @@ public class Cables extends Componente {
         // Actualizar las posiciones de los cables conectados después de mover
         actualizarCablesConectados();
     }
+    
+    
 
     // Método para actualizar las posiciones de los cables hijos
     private void actualizarCablesConectados() {
@@ -110,12 +159,12 @@ public class Cables extends Componente {
 
         // Calcular la cantidad de cables hijos a distribuir a lo largo del cable padre
         int numCablesHijos = cablesConectados.size();
-        
+
         if (numCablesHijos > 0) {
             for (int i = 0; i < numCablesHijos; i++) {
                 Cables cableConectado = cablesConectados.get(i);
                 // Calcular la posición a lo largo del cable padre para cada hijo
-                double posRelativa = longitudCablePadre*cableConectado.getPorcentajeRelativo();
+                double posRelativa = longitudCablePadre * cableConectado.getPorcentajeRelativo();
 
                 // Calcular nuevas coordenadas para cada cable hijo
                 // Fórmulas de interpolación lineal:
@@ -128,29 +177,22 @@ public class Cables extends Componente {
             }
         }
     }
-    
 
-    public double longitudCable(int x1, int y1, int x2, int y2){
+    public double longitudCable(int x1, int y1, int x2, int y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
     // Método para dibujar el cable
     public void draw(Graphics2D g) {
-        g.setStroke(new BasicStroke(4)); // establecer el grosor de la línea
+        g.setStroke(new BasicStroke(grosorLinea)); // establecer el grosor de la línea
         g.setColor(Color.BLACK); // establecer el color de la línea
         g.drawLine(getX(), getY(), getX2(), getY2()); // dibujar la línea del cable
     }
 
-
-    // Método para conectar este cable a otro cable hijo
-    public void conectarACable(Cables cable) {  // agregar el porcentaje relativo que representa la distancia a la que debe de ir conectado el cable
-        cable.setPorcentajeRelativo(longitudCable(getX(), getY(), cable.getX(), cable.getY())/longitudCable(getX(), getY(), getX2(), getY2()));
-        cablesConectados.add(cable); // Agregar el cable a la lista de cables conectados
-        cable.cableOrigen = this; // Configura la referencia al cable de origen
-    }
+  
     // Para eliminar cables que ya estan unidos a los pins
 
-    public void quitarReferenciaAcablesHijos(){
+    public void quitarReferenciaAcablesHijos() {
         for (Cables cablesConectado : cablesConectados) {
             cablesConectado.setCableOrigen(null);
         }
@@ -233,7 +275,5 @@ public class Cables extends Componente {
     public void setPorcentajeRelativo(double porcentajeRelativo) {
         this.porcentajeRelativo = porcentajeRelativo;
     }
-
-    
 
 }

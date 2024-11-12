@@ -1,5 +1,7 @@
 package componentes;
 
+import java.io.Serializable;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -12,7 +14,7 @@ package componentes;
  * @author  Kevin Torres
  * @author Lauren
  */
-public abstract class  Componente {
+public abstract class  Componente implements  Serializable{
     private int x;
     private int y; // Estas dos son las coordenadas en el draw 2D
     private int valor;

@@ -25,6 +25,13 @@ public final class And extends Compuertas {
     //se dibuja la compuerta 
     public void draw(Graphics2D g) {
 
+        g.setColor(new Color(0, 0, 255, 100)); // Este sería donde colocamos el color en RGB
+        g.fillArc(getX(), getY(), 50, 50, 270, 180); // Arco de la forma AND
+        g.fillRect(getX(), getY(), 25, 50); // Cuadro detras del AND
+
+
+       
+        
         g.setStroke(new BasicStroke(2));
         g.drawArc(getX(), getY(), 50, 50, 270, 180); // Arco
         g.drawLine(getX(), getY(), getX(), getY() + 50); // Linea vertical

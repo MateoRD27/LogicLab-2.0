@@ -44,6 +44,14 @@ public class Nand extends Compuertas {
     // Dibujar compuerta NAND
     @Override
     public void draw(Graphics2D g) {
+        
+        g.setColor(new Color(0, 0, 255, 100)); // Este sería donde colocamos el color en RGB
+        g.fillArc(getX(), getY(), 50, 50, 270, 180); // Arco de la forma AND
+        g.fillRect(getX(), getY(), 25, 50); // Cuadro detras del AND
+
+
+        g.setColor(Color.BLACK); // El color de la compuerta al rededor no modificar
+        
         g.setStroke(new BasicStroke(2));
         g.drawArc(getX(), getY(), 50, 50, 270, 180); // Arco
         g.drawLine(getX(), getY(), getX(), getY() + 50); // Línea vertical

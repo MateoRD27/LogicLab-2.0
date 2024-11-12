@@ -29,7 +29,7 @@ public abstract class Compuertas extends Componente {
         this.height = 30;
         this.numEntra = numEntrada; // Número de entradas inicial
         pines = new ArrayList<>(); // la lista de pines
-        this.nombreComp = ""; // Nombre de la compuerta
+        this.nombreComp = nombreComp; // Nombre de la compuerta
 
     }
 
@@ -77,7 +77,7 @@ public abstract class Compuertas extends Componente {
     }
 
     public boolean estaEnLaLinea(int posicionX, int posicionY) {
-        return posicionX >= getX() && posicionX <= getX() + width && posicionY >= getY() && posicionY <= getY() + height;
+        return posicionX >= getX() && posicionX <= getX() + width && posicionY >= getY() && posicionY <= getY() + height+20;
     }
 
     public void cambiarPosicion(int x, int y) {

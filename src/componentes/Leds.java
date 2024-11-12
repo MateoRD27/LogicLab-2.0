@@ -51,7 +51,7 @@ public class Leds extends Componente {
     verifica si la posición de X,Y esta dentro del area ocupada por el LED
     */
     public boolean estaEnLaLinea(int posicionX, int posicionY) {
-        return posicionX >= getX() && posicionX <= getX() + width && posicionY >= getY() && posicionY <= getY() + height;
+        return posicionX >= getX() && posicionX <= getX() + width+5 && posicionY >= getY() && posicionY <= getY() + height+5;
     }
     
     // Metodo para aceptar el cable, se conecta el pin al cable y viceversa
